@@ -22,14 +22,14 @@ IsoBoard/
 ## Key Components
 
 ### 1. CanvasManager (`js/canvas.js`)
-- Initializes `fabric.Canvas`.
-- `drawCourt()`: Uses `Rect`, `Circle`, `Line`, and `Path` to render a basketball court.
+- Initializes `fabric.Canvas` with hardwood color background (`#d6a676`).
+- `drawCourt()`: Uses `Rect`, `Circle`, `Line`, and `Path` to render a basketball court with standard white lines and "paint" areas.
 - `clearNonCourt()`: Removes tactical elements while preserving the court background.
 
 ### 2. ToolManager (`js/tools.js`)
 - Populates sidebar with Attackers (1-5) and Defenders (A-E).
-- Implements Native Drag & Drop mapped to Fabric.js coordinate space via `getPointer()`.
-- `addObjectToCanvas()`: Factory for creating Fabric Groups (circles + labels).
+- Implements Native Drag & Drop mapped to Fabric.js coordinate space via `getPointer()` and event wrapper handling.
+- `addObjectToCanvas()`: Factory for creating Fabric Groups (circles + labels). Includes `requestRenderAll()` to ensure immediate visibility.
 - Manages `isDrawingMode` for freehand tactics.
 
 ### 3. ActionManager (`js/actions.js`)

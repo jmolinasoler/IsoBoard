@@ -38,16 +38,29 @@ export class ToolManager {
             item.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('tool-type', item.dataset.type);
                 e.dataTransfer.setData('tool-label', item.dataset.label || item.textContent);
+                e.dataTransfer.effectAllowed = 'copy';
             });
         });
 
-        const canvasEl = document.getElementById('main-canvas').parentElement;
-        canvasEl.addEventListener('dragover', (e) => e.preventDefault());
-        canvasEl.addEventListener('drop', (e) => {
+        const canvasWrapper = document.querySelector('.canvas-container'); // Wrapper
+
+        // We need to listen on the wrapper to catch events over the canvas
+        canvasWrapper.addEventListener('dragover', (e) => {
+            e.preventDefault(); // Necessary for drop to fire
+            e.dataTransfer.dropEffect = 'copy';
+            return false;
+        });
+
+        canvasWrapper.addEventListener('drop', (e) => {
             e.preventDefault();
+            e.stopPropagation(); // Stop bubbling
+
             const type = e.dataTransfer.getData('tool-type');
             const label = e.dataTransfer.getData('tool-label');
 
+            if (!type) return;
+
+            // map event to canvas coordinates
             const pointer = this.canvas.getPointer(e);
             this.addObjectToCanvas(type, label, pointer.x, pointer.y);
         });
@@ -60,8 +73,12 @@ export class ToolManager {
             top: y,
             originX: 'center',
             originY: 'center',
-            hasControls: false,
-            hasBorders: false
+            hasControls: true,
+            hasBorders: true,
+            borderColor: '#2563eb',
+            cornerColor: '#2563eb',
+            transparentCorners: false,
+            cornerSize: 8
         };
 
         if (type === 'attacker' || type === 'defender') {
@@ -71,12 +88,15 @@ export class ToolManager {
                 fill: color,
                 stroke: 'white',
                 strokeWidth: 2,
-                shadow: '0 4px 6px rgba(0,0,0,0.3)'
+                shadow: '0 4px 6px rgba(0,0,0,0.3)',
+                originX: 'center',
+                originY: 'center'
             });
             const text = new fabric.Text(label, {
                 fontSize: 18,
                 fill: 'white',
                 fontWeight: 'bold',
+                fontFamily: 'Inter',
                 originX: 'center',
                 originY: 'center'
             });
@@ -87,9 +107,10 @@ export class ToolManager {
                 fill: '#f97316',
                 stroke: '#000',
                 strokeWidth: 1,
-                ...commonProps
+                originX: 'center',
+                originY: 'center'
             });
-            obj = circle;
+            obj = new fabric.Group([circle], commonProps); // Wrap in group for consistent behavior
         } else if (type === 'cone') {
             const triangle = new fabric.Triangle({
                 width: 24,
@@ -97,14 +118,16 @@ export class ToolManager {
                 fill: '#f97316',
                 stroke: '#fff',
                 strokeWidth: 1,
-                ...commonProps
+                originX: 'center',
+                originY: 'center'
             });
-            obj = triangle;
+            obj = new fabric.Group([triangle], commonProps);
         }
 
         if (obj) {
             this.canvas.add(obj);
             this.canvas.setActiveObject(obj);
+            this.canvas.requestRenderAll(); // Explicitly request display update
         }
     }
 
