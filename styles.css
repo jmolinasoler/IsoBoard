@@ -92,10 +92,26 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.tool-item.attacker { background-color: var(--attacker-red); color: white; }
-.tool-item.defender { background-color: var(--defender-blue); color: white; }
-.tool-item.ball { background-color: var(--ball-orange); font-size: 1.2rem; }
-.tool-item.cone { background-color: var(--ball-orange); color: white; font-size: 1rem; }
+.tool-item.attacker {
+    background-color: var(--attacker-red);
+    color: white;
+}
+
+.tool-item.defender {
+    background-color: var(--defender-blue);
+    color: white;
+}
+
+.tool-item.ball {
+    background-color: var(--ball-orange);
+    font-size: 1.2rem;
+}
+
+.tool-item.cone {
+    background-color: var(--ball-orange);
+    color: white;
+    font-size: 1rem;
+}
 
 /* Canvas Area */
 .canvas-container {
@@ -109,7 +125,8 @@ body {
 }
 
 .canvas-container canvas {
-    background-color: #22c55e; /* Court base green */
+    background-color: #ffffff;
+    /* Simplistic white base */
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
 }

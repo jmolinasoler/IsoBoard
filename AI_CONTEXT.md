@@ -22,8 +22,8 @@ IsoBoard/
 ## Key Components
 
 ### 1. CanvasManager (`js/canvas.js`)
-- Initializes `fabric.Canvas` with hardwood color background (`#d6a676`).
-- `drawCourt()`: Uses `Rect`, `Circle`, `Line`, and `Path` to render a basketball court with standard white lines and "paint" areas.
+- Initializes `fabric.Canvas` with white background (`#ffffff`).
+- `drawCourt()`: Uses `Rect`, `Circle`, `Line`, and `Path` to render a schematic basketball court with black lines.
 - `clearNonCourt()`: Removes tactical elements while preserving the court background.
 
 ### 2. ToolManager (`js/tools.js`)

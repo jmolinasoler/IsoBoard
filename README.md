@@ -37,6 +37,30 @@ To host this project on GitHub Pages:
 
 Your IsoBoard will be live at `https://<your-username>.github.io/<repo-name>/`.
 
+## 💻 Local Development / Debugging
+
+Since the application uses ES Modules and the Clipboard API, it requires an HTTP server to run locally (it will not work correctly if you just open `index.html` as a file).
+
+### Option 1: Using Python (Recommended)
+If you have Python installed, run this command in the project directory:
+
+```bash
+# Python 3
+python3 -m http.server
+```
+
+Then open [http://localhost:8000](http://localhost:8000) in your browser.
+
+### Option 2: Using Node.js (npx)
+If you have Node.js installed:
+
+```bash
+npx http-server -c-1 .
+```
+
+The `-c-1` flag disables caching, which is important for seeing your changes immediately.
+Then open the URL shown in the terminal (usually [http://localhost:8080](http://localhost:8080)).
+
 ## 🔒 Security Note
 
 The **Copy to Clipboard** feature uses the `navigator.clipboard` API, which requires a **Secure Context (HTTPS)**. It will work on `localhost` and `GitHub Pages`, but may fail if opened via `file://`.
