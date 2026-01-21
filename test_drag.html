@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Drag</title>
+    <style>
+        .draggable { 
+            width: 50px; 
+            height: 50px; 
+            background: red; 
+            margin: 10px;
+            cursor: grab;
+        }
+        .dropzone { 
+            width: 400px; 
+            height: 400px; 
+            background: lightgray; 
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="draggable" draggable="true">Drag me</div>
+    <div class="dropzone">Drop here</div>
+    <script>
+        document.querySelector('.draggable').addEventListener('dragstart', (e) => {
+            console.log('DRAGSTART');
+            e.dataTransfer.setData('text', 'test');
+        });
+        
+        const zone = document.querySelector('.dropzone');
+        zone.addEventListener('dragover', (e) => {
+            console.log('DRAGOVER');
+            e.preventDefault();
+        });
+        
+        zone.addEventListener('drop', (e) => {
+            console.log('DROP EVENT!', e);
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

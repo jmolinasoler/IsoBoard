@@ -34,39 +34,70 @@ export class ToolManager {
     }
 
     setupDragAndDrop() {
-        document.querySelectorAll('.tool-item').forEach(item => {
+        const items = document.querySelectorAll('.tool-item');
+        console.log('Setting up drag and drop for', items.length, 'items');
+        
+        items.forEach(item => {
+            console.log('Adding dragstart to:', item.dataset.type, item.dataset.label || item.textContent);
             item.addEventListener('dragstart', (e) => {
+                console.log('DRAGSTART:', item.dataset.type, item.dataset.label);
                 e.dataTransfer.setData('tool-type', item.dataset.type);
                 e.dataTransfer.setData('tool-label', item.dataset.label || item.textContent);
                 e.dataTransfer.effectAllowed = 'copy';
             });
         });
 
-        const canvasWrapper = document.querySelector('.canvas-container'); // Wrapper
+        const canvasWrapper = document.querySelector('.canvas-container');
+        const canvasElement = this.canvas.upperCanvasEl; // The top canvas element that Fabric.js uses
 
-        // We need to listen on the wrapper to catch events over the canvas
-        canvasWrapper.addEventListener('dragover', (e) => {
-            e.preventDefault(); // Necessary for drop to fire
+        // Add dragover and drop listeners to both the wrapper and the canvas element
+        let dragOverCount = 0;
+        const handleDragOver = (e) => {
+            if (dragOverCount % 50 === 0) { // Log every 50th event to avoid spam
+                console.log('DRAGOVER event', dragOverCount);
+            }
+            dragOverCount++;
+            e.preventDefault();
             e.dataTransfer.dropEffect = 'copy';
             return false;
-        });
+        };
 
-        canvasWrapper.addEventListener('drop', (e) => {
+        const handleDrop = (e) => {
+            console.log('>>> DROP event triggered!', e.target);
             e.preventDefault();
-            e.stopPropagation(); // Stop bubbling
+            e.stopPropagation();
 
             const type = e.dataTransfer.getData('tool-type');
             const label = e.dataTransfer.getData('tool-label');
+            console.log('>>> Dropped item:', { type, label });
 
-            if (!type) return;
+            if (!type) {
+                console.log('>>> No type found in dataTransfer');
+                return;
+            }
 
-            // map event to canvas coordinates
+            // Get the pointer position relative to the canvas
             const pointer = this.canvas.getPointer(e);
+            console.log('>>> Canvas pointer:', pointer);
             this.addObjectToCanvas(type, label, pointer.x, pointer.y);
-        });
+        };
+
+        // Listen on both wrapper and canvas element
+        console.log('Adding event listeners to canvasWrapper and canvasElement');
+        canvasWrapper.addEventListener('dragover', handleDragOver);
+        canvasWrapper.addEventListener('drop', handleDrop);
+        
+        if (canvasElement) {
+            console.log('Canvas element found, adding listeners');
+            canvasElement.addEventListener('dragover', handleDragOver);
+            canvasElement.addEventListener('drop', handleDrop);
+        } else {
+            console.warn('Canvas element (upperCanvasEl) not found!');
+        }
     }
 
     addObjectToCanvas(type, label, x, y) {
+        console.log('Adding object to canvas:', { type, label, x, y });
         let obj;
         const commonProps = {
             left: x,
@@ -92,11 +123,12 @@ export class ToolManager {
                 originX: 'center',
                 originY: 'center'
             });
-            const text = new fabric.Text(label, {
+            const text = new fabric.Text(String(label), {
                 fontSize: 18,
                 fill: 'white',
                 fontWeight: 'bold',
-                fontFamily: 'Inter',
+                fontFamily: 'Inter, Arial, sans-serif',
+                textBaseline: 'middle',
                 originX: 'center',
                 originY: 'center'
             });

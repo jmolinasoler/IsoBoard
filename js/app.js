@@ -5,17 +5,21 @@ import { ActionManager } from './actions.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Managers
     const canvasMgr = new CanvasManager('main-canvas');
-    const toolMgr = new ToolManager(canvasMgr.getCanvas(), 'attackers-tools', 'defenders-tools');
-    const actionMgr = new ActionManager(canvasMgr);
-
-    // Sidebar Tool Initialization (Extras already in HTML)
+    
+    // Configure Extras BEFORE creating ToolManager so they get event listeners
     const ballTool = document.getElementById('tool-ball');
     const coneTool = document.getElementById('tool-cone');
 
     [ballTool, coneTool].forEach(tool => {
         tool.draggable = true;
         tool.dataset.type = tool.id.replace('tool-', '');
+        // Ensure they have the tool-item class for drag and drop
+        tool.classList.add('tool-item');
     });
+    
+    // Now create ToolManager (it will pick up all .tool-item elements including extras)
+    const toolMgr = new ToolManager(canvasMgr.getCanvas(), 'attackers-tools', 'defenders-tools');
+    const actionMgr = new ActionManager(canvasMgr);
 
     // Event Listeners for UI Buttons
     const btnDraw = document.getElementById('btn-draw');
