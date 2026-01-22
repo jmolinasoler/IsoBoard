@@ -1,15 +1,15 @@
 /// <reference path="libs/snapsvg.d.ts" />
-/// <reference path="fibaGraphic.ts" />
-/// <reference path="fibaDrawingCurvedPath.ts" />
-/// <reference path="fibaDrawingSvg.ts" />
-/// <reference path="fibaDrawingController.ts" /> 
-var FibaEurope;
+/// <reference path="isoBoardGraphic.ts" />
+/// <reference path="isoBoardDrawingCurvedPath.ts" />
+/// <reference path="isoBoardDrawingSvg.ts" />
+/// <reference path="isoBoardDrawingController.ts" /> 
+var IsoBoard;
 /// <reference path="libs/snapsvg.d.ts" />
-/// <reference path="fibaGraphic.ts" />
-/// <reference path="fibaDrawingCurvedPath.ts" />
-/// <reference path="fibaDrawingSvg.ts" />
-/// <reference path="fibaDrawingController.ts" /> 
-(function (FibaEurope) {
+/// <reference path="isoBoardGraphic.ts" />
+/// <reference path="isoBoardDrawingCurvedPath.ts" />
+/// <reference path="isoBoardDrawingSvg.ts" />
+/// <reference path="isoBoardDrawingController.ts" /> 
+(function (IsoBoard) {
     var Drawing;
     (function (Drawing) {
         "use strict";
@@ -18,7 +18,7 @@ var FibaEurope;
                 var _this = this;
                 this.isWheelchair = false;
                 this.uiButtons = new Array();
-                this.currentAreaColor = FibaEurope.Data.elementColor.yellow;
+                this.currentAreaColor = IsoBoard.Data.elementColor.yellow;
                 this.defaultOptions = {
                     idDrawingHost: "drawingHost",
                     buttons: {
@@ -153,7 +153,7 @@ var FibaEurope;
                                     btnInterpolation.removeAttribute("data-checked");
                             };
                             // init image
-                            var svgElInterpolation = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElInterpolation = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             while (el.firstChild) {
                                 el.removeChild(el.firstChild);
                             }
@@ -169,7 +169,7 @@ var FibaEurope;
                             el.setAttribute("data-toggle", "color");
                             var ctrl = this.drawingController;
                             el.addEventListener("click", function (ev) {
-                                var dialogEl = FibaEurope.Drawing.DrawingElementHelper.createColorSelectDialog(ctrl.getColor(), function (color) {
+                                var dialogEl = IsoBoard.Drawing.DrawingElementHelper.createColorSelectDialog(ctrl.getColor(), function (color) {
                                     dialogEl.parentElement.removeChild(dialogEl);
                                     ctrl.setColor(color);
                                 });
@@ -178,7 +178,7 @@ var FibaEurope;
                             }, false);
                             this.uiButtons.push(el);
                             // init image
-                            var svgElColor = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElColor = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElColor.setAttribute("viewBox", "0 -2 32 34");
                             while (el.firstChild) {
                                 el.removeChild(el.firstChild);
@@ -190,15 +190,15 @@ var FibaEurope;
                             this.drawingController.onColorChanged = function (color) {
                                 var colorAttr = { fill: Drawing.DrawingElementHelper.getColorString(color), strokeWidth: null, stroke: null };
                                 switch (color) {
-                                    case FibaEurope.Data.elementColor.green:
-                                    case FibaEurope.Data.elementColor.red:
-                                    case FibaEurope.Data.elementColor.grey:
-                                    case FibaEurope.Data.elementColor.black:
-                                    case FibaEurope.Data.elementColor.blue:
-                                    case FibaEurope.Data.elementColor.offence:
-                                    case FibaEurope.Data.elementColor.defence:
+                                    case IsoBoard.Data.elementColor.green:
+                                    case IsoBoard.Data.elementColor.red:
+                                    case IsoBoard.Data.elementColor.grey:
+                                    case IsoBoard.Data.elementColor.black:
+                                    case IsoBoard.Data.elementColor.blue:
+                                    case IsoBoard.Data.elementColor.offence:
+                                    case IsoBoard.Data.elementColor.defence:
                                         break;
-                                    case FibaEurope.Data.elementColor.yellow:
+                                    case IsoBoard.Data.elementColor.yellow:
                                         colorAttr.stroke = "#999900";
                                         colorAttr.strokeWidth = 1;
                                         break;
@@ -211,7 +211,7 @@ var FibaEurope;
                                 pathColor.attr(colorAttr);
                                 // update color of the area
                                 if (_this.drawingController.currentMode === Drawing.DrawingToolMode.Area) {
-                                    _this.currentAreaColor = (!color || color < 0) ? FibaEurope.Data.elementColor.yellow : color;
+                                    _this.currentAreaColor = (!color || color < 0) ? IsoBoard.Data.elementColor.yellow : color;
                                     if (_this.uiAreaDrawing)
                                         _this.uiAreaDrawing.setColor(_this.currentAreaColor);
                                 }
@@ -222,7 +222,7 @@ var FibaEurope;
                         // update color of the area
                         this.drawingController.onColorChanged = function (color) {
                             if (_this.drawingController.currentMode === Drawing.DrawingToolMode.Area) {
-                                _this.currentAreaColor = (!color || color < 0) ? FibaEurope.Data.elementColor.yellow : color;
+                                _this.currentAreaColor = (!color || color < 0) ? IsoBoard.Data.elementColor.yellow : color;
                                 if (_this.uiAreaDrawing)
                                     _this.uiAreaDrawing.setColor(_this.currentAreaColor);
                             }
@@ -235,7 +235,7 @@ var FibaEurope;
                             el.addEventListener("click", function (ev) { _this.toggleHalfCourt(); ev.preventDefault(); }, false);
                             this.uiButtons.push(el);
                             // init image
-                            var svgElHalfCourt = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 50);
+                            var svgElHalfCourt = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 50);
                             while (el.firstChild) {
                                 el.removeChild(el.firstChild);
                             }
@@ -269,7 +269,7 @@ var FibaEurope;
                                 elIco = elIco[0];
                             else
                                 elIco = el;
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 -2 30 32");
                             while (elIco.firstChild) {
                                 elIco.removeChild(elIco.firstChild);
@@ -289,7 +289,7 @@ var FibaEurope;
                                 elIco = elIco[0];
                             else
                                 elIco = el;
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 0 32 32");
                             while (elIco.firstChild) {
                                 elIco.removeChild(elIco.firstChild);
@@ -309,7 +309,7 @@ var FibaEurope;
                                 elIco = elIco[0];
                             else
                                 elIco = el;
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 0 32 32");
                             while (elIco.firstChild) {
                                 elIco.removeChild(elIco.firstChild);
@@ -329,7 +329,7 @@ var FibaEurope;
                                 elIco = elIco[0];
                             else
                                 elIco = el;
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 0 32 32");
                             while (elIco.firstChild) {
                                 elIco.removeChild(elIco.firstChild);
@@ -343,7 +343,7 @@ var FibaEurope;
                         var el = document.getElementById(btns.idChangeOffenseColorButton);
                         if (el) {
                             el.addEventListener("click", function (ev) {
-                                var dialogEl = FibaEurope.Drawing.DrawingElementHelper.createColorSelectDialog(FibaEurope.Data.elementColor.offence, function (color) {
+                                var dialogEl = IsoBoard.Drawing.DrawingElementHelper.createColorSelectDialog(IsoBoard.Data.elementColor.offence, function (color) {
                                     dialogEl.parentElement.removeChild(dialogEl);
                                     ctrl.changeOffenseColor(color);
                                 });
@@ -356,21 +356,21 @@ var FibaEurope;
                                 elIco = elIco[0];
                             else
                                 elIco = el;
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 -2 32 34");
                             while (elIco.firstChild) {
                                 elIco.removeChild(elIco.firstChild);
                             }
                             elIco.appendChild(svgElImg);
                             var paperImage = Snap(svgElImg);
-                            paperImage.path(changeColorPath).attr({ fill: Drawing.DrawingElementHelper.getColorString(FibaEurope.Data.elementColor.offence) });
+                            paperImage.path(changeColorPath).attr({ fill: Drawing.DrawingElementHelper.getColorString(IsoBoard.Data.elementColor.offence) });
                         }
                     }
                     if (btns.idChangeDefenseColorButton) {
                         var el = document.getElementById(btns.idChangeDefenseColorButton);
                         if (el) {
                             el.addEventListener("click", function (ev) {
-                                var dialogEl = FibaEurope.Drawing.DrawingElementHelper.createColorSelectDialog(FibaEurope.Data.elementColor.defence, function (color) {
+                                var dialogEl = IsoBoard.Drawing.DrawingElementHelper.createColorSelectDialog(IsoBoard.Data.elementColor.defence, function (color) {
                                     dialogEl.parentElement.removeChild(dialogEl);
                                     ctrl.changeDefenseColor(color);
                                 });
@@ -383,14 +383,14 @@ var FibaEurope;
                                 elIco = elIco[0];
                             else
                                 elIco = el;
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 -2 32 34");
                             while (elIco.firstChild) {
                                 elIco.removeChild(elIco.firstChild);
                             }
                             elIco.appendChild(svgElImg);
                             var paperImage = Snap(svgElImg);
-                            paperImage.path(changeColorPath).attr({ fill: Drawing.DrawingElementHelper.getColorString(FibaEurope.Data.elementColor.defence) });
+                            paperImage.path(changeColorPath).attr({ fill: Drawing.DrawingElementHelper.getColorString(IsoBoard.Data.elementColor.defence) });
                         }
                     }
                     if (btns.idClearButton) {
@@ -403,7 +403,7 @@ var FibaEurope;
                                 elIco = elIco[0];
                             else
                                 elIco = el;
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 0 32 32");
                             while (elIco.firstChild) {
                                 elIco.removeChild(elIco.firstChild);
@@ -442,7 +442,7 @@ var FibaEurope;
                                 }, false);
                             }
                             // init image
-                            var svgElImg = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                            var svgElImg = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                             svgElImg.setAttribute("viewBox", "0 0 32 32");
                             while (btn.firstChild) {
                                 btn.removeChild(btn.firstChild);
@@ -455,13 +455,13 @@ var FibaEurope;
                     if (btns.idSaveAndNewButton) {
                         var el = document.getElementById(btns.idSaveAndNewButton);
                         if (el) {
-                            el.addEventListener("click", function (ev) { _this.saveAndNew(); ev.preventDefault(); }, false);
+                            el.addEventListener("click", function (ev) { _this.downloadImg(); ev.preventDefault(); }, false);
                         }
                     }
                     if (btns.idSaveAndCloseButton) {
                         var el = document.getElementById(btns.idSaveAndCloseButton);
                         if (el) {
-                            el.addEventListener("click", function (ev) { _this.saveAndClose(); ev.preventDefault(); }, false);
+                            el.addEventListener("click", function (ev) { _this.copyToClipboard(); ev.preventDefault(); }, false);
                         }
                     }
                 }
@@ -478,7 +478,7 @@ var FibaEurope;
                     }
                     if (this.options.loadAction.url) {
                         var url = this.replaceMagicStrings(this.options.loadAction.url + "");
-                        FibaEurope.Data.Graphic.loadFromUrl(url, function (graphic) {
+                        IsoBoard.Data.Graphic.loadFromUrl(url, function (graphic) {
                             if (graphic)
                                 this.drawingController.loadGraphic(graphic);
                             if (this.options.loadAction.doneCallback)
@@ -506,13 +506,13 @@ var FibaEurope;
                 // init button content
                 if (el.hasAttribute("data-noinit") || mode === Drawing.DrawingToolMode.Text)
                     return;
-                var svgEl = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                var svgEl = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                 while (el.firstChild) {
                     el.removeChild(el.firstChild);
                 }
                 el.appendChild(svgEl);
-                var drawing = new FibaEurope.Drawing.SvgDrawing(Snap(svgEl), null, true, true);
-                var dynEl = new FibaEurope.Data.DynamicElement();
+                var drawing = new IsoBoard.Drawing.SvgDrawing(Snap(svgEl), null, true, true);
+                var dynEl = new IsoBoard.Data.DynamicElement();
                 dynEl.x = 15;
                 dynEl.y = 16;
                 switch (mode) {
@@ -525,8 +525,8 @@ var FibaEurope;
                     case Drawing.DrawingToolMode.Offense:
                         drawing.disableTextSelection();
                         dynEl.nr = this.drawingController.currentOffenseNr;
-                        dynEl.type = FibaEurope.Data.dynamicElementType.offence;
-                        dynEl.color = FibaEurope.Data.elementColor.offence;
+                        dynEl.type = IsoBoard.Data.dynamicElementType.offence;
+                        dynEl.color = IsoBoard.Data.elementColor.offence;
                         this.uiOffenseDrawing = drawing.drawOffense(dynEl, this.isWheelchair);
                         this.appendSelectionButtons(svgEl, drawing.paper, function () { if (_this.drawingController.currentOffenseNr > 1)
                             _this.drawingController.setOffenseNr(_this.drawingController.currentOffenseNr - 1); _this.drawingController.setMode(mode); }, function () { if (_this.drawingController.currentOffenseNr < 9)
@@ -536,8 +536,8 @@ var FibaEurope;
                     case Drawing.DrawingToolMode.Defense:
                         drawing.disableTextSelection();
                         dynEl.nr = this.drawingController.currentDefenseNr;
-                        dynEl.type = FibaEurope.Data.dynamicElementType.defence;
-                        dynEl.color = FibaEurope.Data.elementColor.defence;
+                        dynEl.type = IsoBoard.Data.dynamicElementType.defence;
+                        dynEl.color = IsoBoard.Data.elementColor.defence;
                         this.uiDefenseDrawing = drawing.drawDefense(dynEl, this.isWheelchair);
                         this.uiDefenseDrawing.displayElement.transform("translate(15,16) scale(0.8)");
                         this.appendSelectionButtons(svgEl, drawing.paper, function () { if (_this.drawingController.currentDefenseNr > 1)
@@ -546,24 +546,24 @@ var FibaEurope;
                         this.onLongPress(el, function (e) { return _this.selectPlayerNrAndFixed(true); });
                         break;
                     case Drawing.DrawingToolMode.Ball:
-                        dynEl.type = FibaEurope.Data.dynamicElementType.ball;
+                        dynEl.type = IsoBoard.Data.dynamicElementType.ball;
                         dynEl.x = 8;
                         dynEl.y = 9;
                         svgEl.setAttribute("viewBox", "0 0 16 16");
                         drawing.drawBall(dynEl);
                         break;
                     case Drawing.DrawingToolMode.Cone:
-                        dynEl.type = FibaEurope.Data.dynamicElementType.cone;
+                        dynEl.type = IsoBoard.Data.dynamicElementType.cone;
                         drawing.drawCone(dynEl);
                         break;
                     case Drawing.DrawingToolMode.Coach:
                         drawing.disableTextSelection();
-                        dynEl.type = FibaEurope.Data.dynamicElementType.coach;
+                        dynEl.type = IsoBoard.Data.dynamicElementType.coach;
                         drawing.drawCoach(dynEl);
                         break;
                     case Drawing.DrawingToolMode.Area:
-                        var statEl = new FibaEurope.Data.StaticElement();
-                        statEl.type = FibaEurope.Data.staticElementType.area;
+                        var statEl = new IsoBoard.Data.StaticElement();
+                        statEl.type = IsoBoard.Data.staticElementType.area;
                         statEl.form = this.drawingController.currentAreaForm;
                         statEl.color = this.currentAreaColor;
                         statEl.x = 1;
@@ -574,37 +574,37 @@ var FibaEurope;
                         break;
                     case Drawing.DrawingToolMode.LineMovementFreehand:
                     case Drawing.DrawingToolMode.LineMovement:
-                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, FibaEurope.Data.lineElementType.movement);
+                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, IsoBoard.Data.lineElementType.movement);
                         break;
                     case Drawing.DrawingToolMode.LinePassingFreehand:
                     case Drawing.DrawingToolMode.LinePassing:
-                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, FibaEurope.Data.lineElementType.passing);
+                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, IsoBoard.Data.lineElementType.passing);
                         break;
                     case Drawing.DrawingToolMode.LineDribblingFreehand:
                     case Drawing.DrawingToolMode.LineDribbling:
-                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, FibaEurope.Data.lineElementType.dribbling);
+                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, IsoBoard.Data.lineElementType.dribbling);
                         break;
                     case Drawing.DrawingToolMode.LineScreenFreehand:
                     case Drawing.DrawingToolMode.LineScreen:
-                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, FibaEurope.Data.lineElementType.screen);
+                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, IsoBoard.Data.lineElementType.screen);
                         break;
                     case Drawing.DrawingToolMode.Shooting:
-                        dynEl.type = FibaEurope.Data.dynamicElementType.shooting;
+                        dynEl.type = IsoBoard.Data.dynamicElementType.shooting;
                         dynEl.x = -8;
                         dynEl.y = 20;
                         dynEl.rotation = 90;
-                        dynEl.color = FibaEurope.Data.elementColor.black;
+                        dynEl.color = IsoBoard.Data.elementColor.black;
                         svgEl.setAttribute("viewBox", "0 0 34 34");
                         drawing.drawShooting(dynEl);
                         break;
                     case Drawing.DrawingToolMode.Handoff:
-                        dynEl.type = FibaEurope.Data.dynamicElementType.handoff;
-                        dynEl.color = FibaEurope.Data.elementColor.black;
+                        dynEl.type = IsoBoard.Data.dynamicElementType.handoff;
+                        dynEl.color = IsoBoard.Data.elementColor.black;
                         drawing.drawHandoff(dynEl);
                         break;
                     case Drawing.DrawingToolMode.LineFreehand:
                     case Drawing.DrawingToolMode.Line:
-                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, FibaEurope.Data.lineElementType.line);
+                        Drawing.LineDrawingElement.drawLineTypeIcon(drawing.paper, IsoBoard.Data.lineElementType.line);
                         break;
                 }
             };
@@ -612,7 +612,7 @@ var FibaEurope;
                 var _this = this;
                 var nr = isDefense ? this.drawingController.currentDefenseNr : this.drawingController.currentOffenseNr;
                 var isFixed = isDefense ? this.drawingController.currentMode === Drawing.DrawingToolMode.DefenseLocked : this.drawingController.currentMode === Drawing.DrawingToolMode.OffenseLocked;
-                var dialogEl = FibaEurope.Drawing.DynamicDrawingElement.createNrSelectDialog(nr, FibaEurope.Data.elementColor.unknown, isDefense, this.drawingController.wheelchair, function (nr, fixed) {
+                var dialogEl = IsoBoard.Drawing.DynamicDrawingElement.createNrSelectDialog(nr, IsoBoard.Data.elementColor.unknown, isDefense, this.drawingController.wheelchair, function (nr, fixed) {
                     dialogEl.parentElement.removeChild(dialogEl);
                     var mode;
                     if (isDefense) {
@@ -755,35 +755,35 @@ var FibaEurope;
                 this.drawingController.deleteSelected();
             };
             DrawingTool.prototype.increaseAreaFormAndColor = function () {
-                if (this.drawingController.currentAreaForm === FibaEurope.Data.staticElementForm.triangle) {
-                    if (this.currentAreaColor < FibaEurope.Data.elementColor.defence) {
-                        var form = FibaEurope.Data.staticElementForm.ellipse;
+                if (this.drawingController.currentAreaForm === IsoBoard.Data.staticElementForm.triangle) {
+                    if (this.currentAreaColor < IsoBoard.Data.elementColor.defence) {
+                        var form = IsoBoard.Data.staticElementForm.ellipse;
                         var color = this.currentAreaColor + 1;
                         this.drawingController.setAreaForm(form);
                         this.drawingController.setColor(color);
                     }
                 }
-                else if (this.drawingController.currentAreaForm === FibaEurope.Data.staticElementForm.ellipse) {
-                    this.drawingController.setAreaForm(FibaEurope.Data.staticElementForm.rectangle);
+                else if (this.drawingController.currentAreaForm === IsoBoard.Data.staticElementForm.ellipse) {
+                    this.drawingController.setAreaForm(IsoBoard.Data.staticElementForm.rectangle);
                 }
-                else if (this.drawingController.currentAreaForm === FibaEurope.Data.staticElementForm.rectangle) {
-                    this.drawingController.setAreaForm(FibaEurope.Data.staticElementForm.triangle);
+                else if (this.drawingController.currentAreaForm === IsoBoard.Data.staticElementForm.rectangle) {
+                    this.drawingController.setAreaForm(IsoBoard.Data.staticElementForm.triangle);
                 }
             };
             DrawingTool.prototype.decreaseAreaFormAndColor = function () {
-                if (this.drawingController.currentAreaForm === FibaEurope.Data.staticElementForm.ellipse) {
-                    if (this.currentAreaColor > FibaEurope.Data.elementColor.yellow) {
-                        var form = FibaEurope.Data.staticElementForm.triangle;
+                if (this.drawingController.currentAreaForm === IsoBoard.Data.staticElementForm.ellipse) {
+                    if (this.currentAreaColor > IsoBoard.Data.elementColor.yellow) {
+                        var form = IsoBoard.Data.staticElementForm.triangle;
                         var color = this.currentAreaColor - 1;
                         this.drawingController.setAreaForm(form);
                         this.drawingController.setColor(color);
                     }
                 }
-                else if (this.drawingController.currentAreaForm === FibaEurope.Data.staticElementForm.rectangle) {
-                    this.drawingController.setAreaForm(FibaEurope.Data.staticElementForm.ellipse);
+                else if (this.drawingController.currentAreaForm === IsoBoard.Data.staticElementForm.rectangle) {
+                    this.drawingController.setAreaForm(IsoBoard.Data.staticElementForm.ellipse);
                 }
-                else if (this.drawingController.currentAreaForm === FibaEurope.Data.staticElementForm.triangle) {
-                    this.drawingController.setAreaForm(FibaEurope.Data.staticElementForm.rectangle);
+                else if (this.drawingController.currentAreaForm === IsoBoard.Data.staticElementForm.triangle) {
+                    this.drawingController.setAreaForm(IsoBoard.Data.staticElementForm.rectangle);
                 }
             };
             DrawingTool.prototype.toggleHalfCourt = function () {
@@ -810,6 +810,33 @@ var FibaEurope;
                             opt.doneCallback = this.options.imgDownloadAction.doneCallback;
                     }
                     Drawing.CanvasDrawing.exportGraphic(this.drawingController.drawing.paper.node, opt);
+                }
+            };
+            DrawingTool.prototype.copyToClipboard = function () {
+                var _this = this;
+                this.drawingController.selectElement(null);
+                try {
+                    var canvasHost = document.createElement("div");
+                    Drawing.CanvasDrawing.drawGraphic(this.drawingController.drawing.paper.node, {
+                        host: canvasHost,
+                        renderCallback: function (canvas) {
+                            canvas.toBlob(function (blob) {
+                                if (blob) {
+                                    var item = new ClipboardItem({ 'image/png': blob });
+                                    navigator.clipboard.write([item]).then(function () {
+                                        alert('Image copied to clipboard!');
+                                    }).catch(function (err) {
+                                        console.error('Failed to copy to clipboard:', err);
+                                        alert('Failed to copy to clipboard. Please try downloading instead.');
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+                catch (err) {
+                    console.error('Clipboard error:', err);
+                    alert('Clipboard not supported. Please use the download button instead.');
                 }
             };
             DrawingTool.prototype.getFilledParams = function (orgParams) {
@@ -913,6 +940,6 @@ var FibaEurope;
             return DrawingTool;
         }());
         Drawing.DrawingTool = DrawingTool;
-    })(Drawing = FibaEurope.Drawing || (FibaEurope.Drawing = {}));
-})(FibaEurope || (FibaEurope = {}));
-//# sourceMappingURL=fibaDrawingTool.js.map
+    })(Drawing = IsoBoard.Drawing || (IsoBoard.Drawing = {}));
+})(IsoBoard || (IsoBoard = {}));
+//# sourceMappingURL=isoBoardDrawingTool.js.map

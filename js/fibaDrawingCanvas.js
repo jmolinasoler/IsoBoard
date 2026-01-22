@@ -2,7 +2,7 @@
 /// <reference path="libs/snapsvg.d.ts" />
 /// <reference path="libs/jszip.d.ts" />
 /// <reference path="libs/filesaver.d.ts" />
-/// <reference path="fibaGraphic.ts" />
+/// <reference path="isoBoardGraphic.ts" />
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -11,13 +11,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var FibaEurope;
+var IsoBoard;
 /// <reference path="libs/canvg.d.ts" />
 /// <reference path="libs/snapsvg.d.ts" />
 /// <reference path="libs/jszip.d.ts" />
 /// <reference path="libs/filesaver.d.ts" />
-/// <reference path="fibaGraphic.ts" />
-(function (FibaEurope) {
+/// <reference path="isoBoardGraphic.ts" />
+(function (IsoBoard) {
     var Drawing;
     (function (Drawing) {
         "use strict";
@@ -194,6 +194,6 @@ var FibaEurope;
             return CanvasDrawing;
         }());
         Drawing.CanvasDrawing = CanvasDrawing;
-    })(Drawing = FibaEurope.Drawing || (FibaEurope.Drawing = {}));
-})(FibaEurope || (FibaEurope = {}));
-//# sourceMappingURL=fibaDrawingCanvas.js.map
+    })(Drawing = IsoBoard.Drawing || (IsoBoard.Drawing = {}));
+})(IsoBoard || (IsoBoard = {}));
+//# sourceMappingURL=isoBoardDrawingCanvas.js.map

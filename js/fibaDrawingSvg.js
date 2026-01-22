@@ -1,11 +1,11 @@
 /// <reference path="libs/snapsvg.d.ts" />
-/// <reference path="fibaGraphic.ts" />
-/// <reference path="fibaDrawingCurvedPath.ts" />
-var FibaEurope;
+/// <reference path="isoBoardGraphic.ts" />
+/// <reference path="isoBoardDrawingCurvedPath.ts" />
+var IsoBoard;
 /// <reference path="libs/snapsvg.d.ts" />
-/// <reference path="fibaGraphic.ts" />
-/// <reference path="fibaDrawingCurvedPath.ts" />
-(function (FibaEurope) {
+/// <reference path="isoBoardGraphic.ts" />
+/// <reference path="isoBoardDrawingCurvedPath.ts" />
+(function (IsoBoard) {
     var Drawing;
     (function (Drawing) {
         "use strict";
@@ -53,33 +53,33 @@ var FibaEurope;
                     var i = 0;
                     // 1. area
                     for (i = 0; i < this.graphic.staticElements.length; i++)
-                        if (this.graphic.staticElements[i].type === FibaEurope.Data.staticElementType.area)
+                        if (this.graphic.staticElements[i].type === IsoBoard.Data.staticElementType.area)
                             this.drawStatic(this.graphic.staticElements[i]);
                     // 2. shoot
                     for (i = 0; i < this.graphic.dynamicElements.length; i++)
-                        if (this.graphic.dynamicElements[i].type === FibaEurope.Data.dynamicElementType.shooting ||
-                            this.graphic.dynamicElements[i].type === FibaEurope.Data.dynamicElementType.handoff)
+                        if (this.graphic.dynamicElements[i].type === IsoBoard.Data.dynamicElementType.shooting ||
+                            this.graphic.dynamicElements[i].type === IsoBoard.Data.dynamicElementType.handoff)
                             this.drawDynamic(this.graphic.dynamicElements[i], this.graphic.wheelchair);
                     // 3. line
                     for (i = 0; i < this.graphic.lineElements.length; i++)
                         this.drawLine(this.graphic.lineElements[i]);
                     // 4. cone
                     for (i = 0; i < this.graphic.dynamicElements.length; i++)
-                        if (this.graphic.dynamicElements[i].type === FibaEurope.Data.dynamicElementType.cone)
+                        if (this.graphic.dynamicElements[i].type === IsoBoard.Data.dynamicElementType.cone)
                             this.drawDynamic(this.graphic.dynamicElements[i], this.graphic.wheelchair);
                     // 5. person
                     for (i = 0; i < this.graphic.dynamicElements.length; i++)
-                        if (this.graphic.dynamicElements[i].type === FibaEurope.Data.dynamicElementType.offence ||
-                            this.graphic.dynamicElements[i].type === FibaEurope.Data.dynamicElementType.defence ||
-                            this.graphic.dynamicElements[i].type === FibaEurope.Data.dynamicElementType.coach)
+                        if (this.graphic.dynamicElements[i].type === IsoBoard.Data.dynamicElementType.offence ||
+                            this.graphic.dynamicElements[i].type === IsoBoard.Data.dynamicElementType.defence ||
+                            this.graphic.dynamicElements[i].type === IsoBoard.Data.dynamicElementType.coach)
                             this.drawDynamic(this.graphic.dynamicElements[i], this.graphic.wheelchair);
                     // 6. ball
                     for (i = 0; i < this.graphic.dynamicElements.length; i++)
-                        if (this.graphic.dynamicElements[i].type === FibaEurope.Data.dynamicElementType.ball)
+                        if (this.graphic.dynamicElements[i].type === IsoBoard.Data.dynamicElementType.ball)
                             this.drawDynamic(this.graphic.dynamicElements[i], this.graphic.wheelchair);
                     // 7. text
                     for (i = 0; i < this.graphic.staticElements.length; i++)
-                        if (this.graphic.staticElements[i].type === FibaEurope.Data.staticElementType.text)
+                        if (this.graphic.staticElements[i].type === IsoBoard.Data.staticElementType.text)
                             this.drawStatic(this.graphic.staticElements[i]);
                 }
                 // layer on top to capture all inputs
@@ -182,19 +182,19 @@ var FibaEurope;
                 if (!this.isFullCourt() && dyn.y >= Drawing.halfCourtHeight)
                     return null;
                 switch (dyn.type) {
-                    case FibaEurope.Data.dynamicElementType.offence:
+                    case IsoBoard.Data.dynamicElementType.offence:
                         return this.drawOffense(dyn, wheelchair);
-                    case FibaEurope.Data.dynamicElementType.defence:
+                    case IsoBoard.Data.dynamicElementType.defence:
                         return this.drawDefense(dyn, wheelchair);
-                    case FibaEurope.Data.dynamicElementType.ball:
+                    case IsoBoard.Data.dynamicElementType.ball:
                         return this.drawBall(dyn);
-                    case FibaEurope.Data.dynamicElementType.coach:
+                    case IsoBoard.Data.dynamicElementType.coach:
                         return this.drawCoach(dyn);
-                    case FibaEurope.Data.dynamicElementType.cone:
+                    case IsoBoard.Data.dynamicElementType.cone:
                         return this.drawCone(dyn);
-                    case FibaEurope.Data.dynamicElementType.shooting:
+                    case IsoBoard.Data.dynamicElementType.shooting:
                         return this.drawShooting(dyn);
-                    case FibaEurope.Data.dynamicElementType.handoff:
+                    case IsoBoard.Data.dynamicElementType.handoff:
                         return this.drawHandoff(dyn);
                 }
                 return null;
@@ -389,7 +389,7 @@ var FibaEurope;
                 }
                 var transformation = Snap.matrix();
                 transformation.rotate(dyn.rotation, 0, 0);
-                if (FibaEurope.Data.DynamicElement.isInsideShootingScaleArea(dyn.x, dyn.y))
+                if (IsoBoard.Data.DynamicElement.isInsideShootingScaleArea(dyn.x, dyn.y))
                     transformation.scale(0.7, 0.7, 0, 0);
                 shootingUse.transform(transformation);
                 // group
@@ -427,9 +427,9 @@ var FibaEurope;
                 if (!this.isFullCourt() && stat.y >= Drawing.halfCourtHeight)
                     return null;
                 switch (stat.type) {
-                    case FibaEurope.Data.staticElementType.area:
+                    case IsoBoard.Data.staticElementType.area:
                         return this.drawArea(stat);
-                    case FibaEurope.Data.staticElementType.text:
+                    case IsoBoard.Data.staticElementType.text:
                         return this.drawText(stat);
                 }
                 return null;
@@ -453,15 +453,15 @@ var FibaEurope;
                 var area;
                 var w = Math.abs(stat.width);
                 var h = Math.abs(stat.height);
-                if (stat.form === FibaEurope.Data.staticElementForm.ellipse) {
+                if (stat.form === IsoBoard.Data.staticElementForm.ellipse) {
                     stat.coords = null;
                     area = this.paper.ellipse(w / 2, h / 2, w / 2, h / 2);
                 }
-                else if (stat.form === FibaEurope.Data.staticElementForm.rectangle) {
+                else if (stat.form === IsoBoard.Data.staticElementForm.rectangle) {
                     stat.coords = null;
                     area = this.paper.rect(0, 0, w, h);
                 }
-                else if (stat.form === FibaEurope.Data.staticElementForm.triangle) {
+                else if (stat.form === IsoBoard.Data.staticElementForm.triangle) {
                     if (!stat.coords || stat.coords.length < 3) {
                         stat.coords = StaticDrawingElement.getTriangleCoordsForBox(stat.x, stat.y, stat.width, stat.height);
                     }
@@ -482,7 +482,7 @@ var FibaEurope;
             };
             SvgDrawing.prototype.drawLine = function (line) {
                 var pathString;
-                if (line.type === FibaEurope.Data.lineElementType.dribbling) {
+                if (line.type === IsoBoard.Data.lineElementType.dribbling) {
                     pathString = LineDrawingElement.getPathStringWithWaves(line.coords, line.curved);
                 }
                 else {
@@ -494,20 +494,20 @@ var FibaEurope;
             SvgDrawing.prototype.styleLine = function (line, polyline) {
                 var colorStr = DrawingElementHelper.getColorString(line.color);
                 polyline.attr({ "class": "line", stroke: colorStr, strokeWidth: 1, fill: "none" });
-                if (line.type === FibaEurope.Data.lineElementType.movement || line.type === FibaEurope.Data.lineElementType.dribbling) {
+                if (line.type === IsoBoard.Data.lineElementType.movement || line.type === IsoBoard.Data.lineElementType.dribbling) {
                     polyline.attr({ markerEnd: this.getMarkerArrow(line.color) });
                 }
-                else if (line.type === FibaEurope.Data.lineElementType.passing) {
+                else if (line.type === IsoBoard.Data.lineElementType.passing) {
                     polyline.attr({ markerEnd: this.getMarkerArrow(line.color), strokeDasharray: "6,4" });
                 }
-                else if (line.type === FibaEurope.Data.lineElementType.screen) {
+                else if (line.type === IsoBoard.Data.lineElementType.screen) {
                     polyline.attr({ markerEnd: this.getMarkerLine(line.color) });
                 }
                 return polyline;
             };
             SvgDrawing.prototype.getMarkerArrow = function (color) {
-                if (color === FibaEurope.Data.elementColor.unknown)
-                    color = FibaEurope.Data.elementColor.black;
+                if (color === IsoBoard.Data.elementColor.unknown)
+                    color = IsoBoard.Data.elementColor.black;
                 if (!this.markerArrow)
                     this.markerArrow = [null, null, null, null, null, null, null, null];
                 if (!this.markerArrow[color]) {
@@ -520,8 +520,8 @@ var FibaEurope;
                 return this.markerArrow[color];
             };
             SvgDrawing.prototype.getMarkerLine = function (color) {
-                if (color === FibaEurope.Data.elementColor.unknown)
-                    color = FibaEurope.Data.elementColor.black;
+                if (color === IsoBoard.Data.elementColor.unknown)
+                    color = IsoBoard.Data.elementColor.black;
                 if (!this.markerLine)
                     this.markerLine = [null, null, null, null, null, null, null, null];
                 if (!this.markerLine[color]) {
@@ -658,12 +658,12 @@ var FibaEurope;
                 this.isInEditMode = false;
                 this.canChangeColor = true;
                 this.data = data.clone();
-                this.canChangeColor = data.type === FibaEurope.Data.dynamicElementType.offence || data.type === FibaEurope.Data.dynamicElementType.defence || data.type === FibaEurope.Data.dynamicElementType.shooting || data.type === FibaEurope.Data.dynamicElementType.handoff;
+                this.canChangeColor = data.type === IsoBoard.Data.dynamicElementType.offence || data.type === IsoBoard.Data.dynamicElementType.defence || data.type === IsoBoard.Data.dynamicElementType.shooting || data.type === IsoBoard.Data.dynamicElementType.handoff;
             }
             DynamicDrawingElement.prototype.canRotate = function () {
-                return this.data.type === FibaEurope.Data.dynamicElementType.defence ||
-                    this.data.type === FibaEurope.Data.dynamicElementType.shooting ||
-                    (this.data.type === FibaEurope.Data.dynamicElementType.offence && this.wheelchair);
+                return this.data.type === IsoBoard.Data.dynamicElementType.defence ||
+                    this.data.type === IsoBoard.Data.dynamicElementType.shooting ||
+                    (this.data.type === IsoBoard.Data.dynamicElementType.offence && this.wheelchair);
             };
             DynamicDrawingElement.prototype.initShootingTargets = function (top, bottom) {
                 this.shootingTargetTop = new Drawing.Point(top.x, top.y);
@@ -676,7 +676,7 @@ var FibaEurope;
                 this.isInEditMode = true;
                 if (this.onStartEdit)
                     this.onStartEdit(this);
-                var isDefence = this.data.type === FibaEurope.Data.dynamicElementType.defence;
+                var isDefence = this.data.type === IsoBoard.Data.dynamicElementType.defence;
                 var dialogEl = DynamicDrawingElement.createNrSelectDialog(this.data.nr, this.data.color, isDefence, this.wheelchair, function (nr, fixed) {
                     _this.setNr(nr);
                     dialogEl.parentElement.removeChild(dialogEl);
@@ -711,8 +711,8 @@ var FibaEurope;
                 if (this.rotateEl || this.hoverArrowElement) {
                     var transformation = Snap.matrix();
                     transformation.rotate(rotation, 0, 0);
-                    if (this.data.type === FibaEurope.Data.dynamicElementType.shooting) {
-                        if (FibaEurope.Data.DynamicElement.isInsideShootingScaleArea(this.data.x, this.data.y))
+                    if (this.data.type === IsoBoard.Data.dynamicElementType.shooting) {
+                        if (IsoBoard.Data.DynamicElement.isInsideShootingScaleArea(this.data.x, this.data.y))
                             transformation.scale(0.7, 0.7, 0, 0);
                     }
                     if (this.rotateEl)
@@ -726,7 +726,7 @@ var FibaEurope;
             };
             DynamicDrawingElement.prototype.getHoverElement = function (paper, touchMode) {
                 if (!this.hoverElement) {
-                    if (this.data.type === FibaEurope.Data.dynamicElementType.handoff) {
+                    if (this.data.type === IsoBoard.Data.dynamicElementType.handoff) {
                         this.hoverElement = paper.rect(-8, -8, 16, 16);
                     }
                     else {
@@ -734,11 +734,11 @@ var FibaEurope;
                     }
                     if (this.hoverElement) {
                         this.hoverElement.attr({ fill: "transparent", stroke: "transparent", strokeWidth: touchMode ? 4 : 2 });
-                        if (this.data.type === FibaEurope.Data.dynamicElementType.shooting) {
+                        if (this.data.type === IsoBoard.Data.dynamicElementType.shooting) {
                             this.hoverArrowElement = this.hoverElement;
                             var transformation = Snap.matrix();
                             transformation.rotate(this.data.rotation, 0, 0);
-                            if (FibaEurope.Data.DynamicElement.isInsideShootingScaleArea(this.data.x, this.data.y))
+                            if (IsoBoard.Data.DynamicElement.isInsideShootingScaleArea(this.data.x, this.data.y))
                                 transformation.scale(0.7, 0.7, 0, 0);
                             this.hoverArrowElement.transform(transformation);
                             this.hoverElement = paper.group(this.hoverArrowElement);
@@ -770,15 +770,15 @@ var FibaEurope;
             DynamicDrawingElement.prototype.tmpMoveStart = function (x, y) {
                 var _this = this;
                 this.tmpMovePt = new Drawing.Point(x, y);
-                if (this.data.type === FibaEurope.Data.dynamicElementType.offence || this.data.type === FibaEurope.Data.dynamicElementType.defence) {
+                if (this.data.type === IsoBoard.Data.dynamicElementType.offence || this.data.type === IsoBoard.Data.dynamicElementType.defence) {
                     this.longPressTimer = setTimeout(function () {
                         _this.longPressTimer = null;
                         if (_this.onLongPress) {
                             if (_this.onLongPress(_this, x, y))
                                 return;
                         }
-                        if (_this.data.type === FibaEurope.Data.dynamicElementType.offence ||
-                            _this.data.type === FibaEurope.Data.dynamicElementType.defence) {
+                        if (_this.data.type === IsoBoard.Data.dynamicElementType.offence ||
+                            _this.data.type === IsoBoard.Data.dynamicElementType.defence) {
                             _this.editNr();
                         }
                     }, Thumb.longPressTimeout);
@@ -801,12 +801,12 @@ var FibaEurope;
                         t.setPos(nX, nY);
                     });
                 }
-                if (this.data.type === FibaEurope.Data.dynamicElementType.shooting) {
+                if (this.data.type === IsoBoard.Data.dynamicElementType.shooting) {
                     var rotation = DynamicDrawingElement.getShootingRotation(nX, nY, this.shootingTargetTop, this.shootingTargetBottom);
                     if (this.rotateEl) {
                         var transformation = Snap.matrix();
                         transformation.rotate(rotation, 0, 0);
-                        if (FibaEurope.Data.DynamicElement.isInsideShootingScaleArea(nX, nY))
+                        if (IsoBoard.Data.DynamicElement.isInsideShootingScaleArea(nX, nY))
                             transformation.scale(0.7, 0.7, 0, 0);
                         this.rotateEl.transform(transformation);
                     }
@@ -819,14 +819,14 @@ var FibaEurope;
                 }
                 if (apply && this.tmpMoveVt && (this.tmpMoveVt.x !== 0 || this.tmpMoveVt.y !== 0)) {
                     this.move(this.tmpMoveVt.x, this.tmpMoveVt.y);
-                    if (this.data.type === FibaEurope.Data.dynamicElementType.shooting) {
+                    if (this.data.type === IsoBoard.Data.dynamicElementType.shooting) {
                         var rotation = DynamicDrawingElement.getShootingRotation(this.data.x, this.data.y, this.shootingTargetTop, this.shootingTargetBottom);
                         this.setRotation(Math.round(rotation));
                     }
                 }
                 else {
                     this.move(0, 0);
-                    if (this.data.type === FibaEurope.Data.dynamicElementType.shooting) {
+                    if (this.data.type === IsoBoard.Data.dynamicElementType.shooting) {
                         this.setRotation(this.data.rotation);
                     }
                 }
@@ -852,7 +852,7 @@ var FibaEurope;
                     moveThumb.onMoveTo = function (x, y) { return _this.tmpMoveTo(x, y); };
                     moveThumb.onMoveStop = function (apply) { return _this.tmpMoveStop(apply); };
                     this.thumbs.push(moveThumb);
-                    if (this.canRotate() && this.data.type !== FibaEurope.Data.dynamicElementType.shooting) {
+                    if (this.canRotate() && this.data.type !== IsoBoard.Data.dynamicElementType.shooting) {
                         var rotationRadius = touchMode ? 20 : 15;
                         var rotationThumb = new Thumb(thumbType.rotation, this.data.x, this.data.y, paper, touchMode, rotationRadius).setRotation(this.data.rotation);
                         rotationThumb.onMoveStart = function (x, y) {
@@ -883,21 +883,21 @@ var FibaEurope;
             DynamicDrawingElement.getPreviewElement = function (paper, type) {
                 var el;
                 switch (type) {
-                    case FibaEurope.Data.dynamicElementType.offence:
-                    case FibaEurope.Data.dynamicElementType.defence:
-                    case FibaEurope.Data.dynamicElementType.coach:
+                    case IsoBoard.Data.dynamicElementType.offence:
+                    case IsoBoard.Data.dynamicElementType.defence:
+                    case IsoBoard.Data.dynamicElementType.coach:
                         el = paper.circle(0, 0, 10);
                         break;
-                    case FibaEurope.Data.dynamicElementType.ball:
+                    case IsoBoard.Data.dynamicElementType.ball:
                         el = paper.circle(0, 0, 7);
                         break;
-                    case FibaEurope.Data.dynamicElementType.cone:
+                    case IsoBoard.Data.dynamicElementType.cone:
                         el = paper.path("m -5,8 4.5,-17 1,0 4.5,17 5,0 0,1 -20,0 0,-1 z");
                         break;
-                    case FibaEurope.Data.dynamicElementType.shooting:
+                    case IsoBoard.Data.dynamicElementType.shooting:
                         el = paper.path("m -9,-25 8,-14 8,14 -4,0 0,13 -7.5,0 0,-13 z");
                         break;
-                    case FibaEurope.Data.dynamicElementType.handoff:
+                    case IsoBoard.Data.dynamicElementType.handoff:
                         el = paper.path("M -8,0 H 8 M 4,-8 V 8 M -4,-8 V 8");
                         break;
                 }
@@ -965,28 +965,28 @@ var FibaEurope;
                         playerDiv.classList.add("selectionItemSelected");
                     else
                         playerDiv.classList.add("selectionItem");
-                    var svgEl = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                    var svgEl = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                     svgEl.setAttribute("width", "3em");
                     svgEl.setAttribute("height", "3em");
                     playerDiv.appendChild(svgEl);
-                    var drawing = new FibaEurope.Drawing.SvgDrawing(Snap(svgEl));
+                    var drawing = new IsoBoard.Drawing.SvgDrawing(Snap(svgEl));
                     drawing.disableTextSelection();
-                    var dynEl = new FibaEurope.Data.DynamicElement();
+                    var dynEl = new IsoBoard.Data.DynamicElement();
                     dynEl.x = 15;
                     dynEl.y = 16;
                     dynEl.nr = curNr;
                     dynEl.color = color;
-                    dynEl.type = defence ? FibaEurope.Data.dynamicElementType.defence : FibaEurope.Data.dynamicElementType.offence;
+                    dynEl.type = defence ? IsoBoard.Data.dynamicElementType.defence : IsoBoard.Data.dynamicElementType.offence;
                     if (defence) {
-                        if (color === FibaEurope.Data.elementColor.unknown)
-                            dynEl.color = FibaEurope.Data.elementColor.defence;
+                        if (color === IsoBoard.Data.elementColor.unknown)
+                            dynEl.color = IsoBoard.Data.elementColor.defence;
                         var defenseDrawing = drawing.drawDefense(dynEl, wheelchair);
                         if (!wheelchair)
                             defenseDrawing.displayElement.transform("translate(15,16) scale(0.8)");
                     }
                     else {
-                        if (color === FibaEurope.Data.elementColor.unknown)
-                            dynEl.color = FibaEurope.Data.elementColor.offence;
+                        if (color === IsoBoard.Data.elementColor.unknown)
+                            dynEl.color = IsoBoard.Data.elementColor.offence;
                         drawing.drawOffense(dynEl, wheelchair);
                     }
                     playerDiv.playerNr = curNr;
@@ -1004,9 +1004,9 @@ var FibaEurope;
             };
             DynamicDrawingElement.createObjectTypeSelectDialog = function (objectType, onOk) {
                 var data = [
-                    FibaEurope.Data.dynamicElementType.ball,
-                    FibaEurope.Data.dynamicElementType.cone,
-                    FibaEurope.Data.dynamicElementType.coach,
+                    IsoBoard.Data.dynamicElementType.ball,
+                    IsoBoard.Data.dynamicElementType.cone,
+                    IsoBoard.Data.dynamicElementType.coach,
                 ];
                 var lastClick = Date.now();
                 // create a dialog
@@ -1030,16 +1030,16 @@ var FibaEurope;
                         objectDiv.classList.add("selectionItemSelected");
                     else
                         objectDiv.classList.add("selectionItem");
-                    var svgEl = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                    var svgEl = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                     svgEl.setAttribute("width", "3em");
                     svgEl.setAttribute("height", "3em");
                     objectDiv.appendChild(svgEl);
-                    var drawing = new FibaEurope.Drawing.SvgDrawing(Snap(svgEl));
-                    var dynEl = new FibaEurope.Data.DynamicElement();
+                    var drawing = new IsoBoard.Drawing.SvgDrawing(Snap(svgEl));
+                    var dynEl = new IsoBoard.Data.DynamicElement();
                     dynEl.x = 15;
                     dynEl.y = 16;
                     dynEl.type = curType;
-                    if (curType === FibaEurope.Data.dynamicElementType.ball) {
+                    if (curType === IsoBoard.Data.dynamicElementType.ball) {
                         dynEl.x = 8;
                         dynEl.y = 9;
                         svgEl.setAttribute("viewBox", "0 0 16 16");
@@ -1069,7 +1069,7 @@ var FibaEurope;
                 this.data = data.clone();
             }
             StaticDrawingElement.prototype.setText = function (text) {
-                if (this.data.type !== FibaEurope.Data.staticElementType.text)
+                if (this.data.type !== IsoBoard.Data.staticElementType.text)
                     return;
                 var oldText = this.data.text;
                 this.data.text = text;
@@ -1132,7 +1132,7 @@ var FibaEurope;
                 document.body.appendChild(dialogEl);
             };
             StaticDrawingElement.prototype.setForm = function (form) {
-                if (this.data.type !== FibaEurope.Data.staticElementType.area || !this.displayElement)
+                if (this.data.type !== IsoBoard.Data.staticElementType.area || !this.displayElement)
                     return;
                 var oldForm = this.data.form;
                 if (this.data.form !== form && this.area) {
@@ -1144,7 +1144,7 @@ var FibaEurope;
                         this.hoverArea = null;
                     }
                     var paper = Snap(this.displayElement.node.ownerSVGElement);
-                    if (form === FibaEurope.Data.staticElementForm.ellipse) {
+                    if (form === IsoBoard.Data.staticElementForm.ellipse) {
                         this.data.coords = null;
                         this.area = paper.ellipse(this.data.width / 2, this.data.height / 2, this.data.width / 2, this.data.height / 2);
                         this.displayElement.transform("translate(" + this.data.x + "," + this.data.y + ")");
@@ -1155,7 +1155,7 @@ var FibaEurope;
                             this.hoverElement.append(this.hoverArea);
                         }
                     }
-                    else if (form === FibaEurope.Data.staticElementForm.rectangle) {
+                    else if (form === IsoBoard.Data.staticElementForm.rectangle) {
                         this.data.coords = null;
                         this.area = paper.rect(0, 0, this.data.width, this.data.height);
                         this.displayElement.transform("translate(" + this.data.x + "," + this.data.y + ")");
@@ -1166,7 +1166,7 @@ var FibaEurope;
                             this.hoverElement.append(this.hoverArea);
                         }
                     }
-                    else if (form === FibaEurope.Data.staticElementForm.triangle) {
+                    else if (form === IsoBoard.Data.staticElementForm.triangle) {
                         this.data.coords = StaticDrawingElement.getTriangleCoordsForBox(this.data.x, this.data.y, this.data.width, this.data.height);
                         var pathString = LineDrawingElement.getPathString(this.data.coords, false) + " z";
                         this.area = paper.path(pathString);
@@ -1179,7 +1179,7 @@ var FibaEurope;
                         }
                     }
                     // undo selection because we need new thumbs
-                    if (this.selected && oldForm === FibaEurope.Data.staticElementForm.triangle || form === FibaEurope.Data.staticElementForm.triangle) {
+                    if (this.selected && oldForm === IsoBoard.Data.staticElementForm.triangle || form === IsoBoard.Data.staticElementForm.triangle) {
                         this.setSelected(false);
                     }
                 }
@@ -1188,20 +1188,20 @@ var FibaEurope;
             };
             StaticDrawingElement.getTriangleCoordsForBox = function (x, y, width, height) {
                 var coords = [];
-                coords.push(new FibaEurope.Data.Coordinate(x + width / 2, y));
-                coords.push(new FibaEurope.Data.Coordinate(x, y + height));
-                coords.push(new FibaEurope.Data.Coordinate(x + width, y + height));
+                coords.push(new IsoBoard.Data.Coordinate(x + width / 2, y));
+                coords.push(new IsoBoard.Data.Coordinate(x, y + height));
+                coords.push(new IsoBoard.Data.Coordinate(x + width, y + height));
                 return coords;
             };
             StaticDrawingElement.getTriangleCoordsForVector = function (pt1, pt2) {
                 var coords = [];
-                coords.push(new FibaEurope.Data.Coordinate(pt1.x, pt1.y));
+                coords.push(new IsoBoard.Data.Coordinate(pt1.x, pt1.y));
                 var h = Drawing.CurvedPathMaths.vector(pt1, pt2);
                 var sqrt3 = Math.sqrt(3);
                 var b = new Drawing.Point((-h.y) / sqrt3, h.x / sqrt3);
-                coords.push(new FibaEurope.Data.Coordinate(pt2.x + b.x, pt2.y + b.y));
+                coords.push(new IsoBoard.Data.Coordinate(pt2.x + b.x, pt2.y + b.y));
                 b.invert();
-                coords.push(new FibaEurope.Data.Coordinate(pt2.x + b.x, pt2.y + b.y));
+                coords.push(new IsoBoard.Data.Coordinate(pt2.x + b.x, pt2.y + b.y));
                 return coords;
             };
             StaticDrawingElement.prototype.setColor = function (color, drawing) {
@@ -1213,7 +1213,7 @@ var FibaEurope;
                     this.onChanged(this, "color");
             };
             StaticDrawingElement.prototype.setSize = function (width, height) {
-                if (this.data.type !== FibaEurope.Data.staticElementType.area || !this.area)
+                if (this.data.type !== IsoBoard.Data.staticElementType.area || !this.area)
                     return;
                 width = Drawing.CurvedPathMaths.round(width, 2);
                 height = Drawing.CurvedPathMaths.round(height, 2);
@@ -1221,7 +1221,7 @@ var FibaEurope;
                 this.data.width = width;
                 var oldHeight = this.data.height;
                 this.data.height = height;
-                if (this.data.form === FibaEurope.Data.staticElementForm.ellipse) {
+                if (this.data.form === IsoBoard.Data.staticElementForm.ellipse) {
                     var w2 = width / 2;
                     var h2 = height / 2;
                     this.area.attr({ cx: w2, cy: h2, rx: w2, ry: h2 });
@@ -1229,7 +1229,7 @@ var FibaEurope;
                         this.hoverArea.attr({ cx: w2, cy: h2, rx: w2, ry: h2 });
                     this.updateSizeThumbs(this.data.x, this.data.y, this.data.width, this.data.height);
                 }
-                else if (this.data.form === FibaEurope.Data.staticElementForm.rectangle) {
+                else if (this.data.form === IsoBoard.Data.staticElementForm.rectangle) {
                     this.area.attr({ width: width, height: height });
                     if (this.hoverArea)
                         this.hoverArea.attr({ width: width, height: height });
@@ -1257,7 +1257,7 @@ var FibaEurope;
             };
             StaticDrawingElement.prototype.getHoverElement = function (paper, touchMode) {
                 if (!this.hoverElement) {
-                    if (this.data.type === FibaEurope.Data.staticElementType.text) {
+                    if (this.data.type === IsoBoard.Data.staticElementType.text) {
                         var bb = this.displayElement.getBBox();
                         this.hoverElement = paper.rect(0, 0, bb.width, bb.height + 15);
                         // if the element is not rendered onscreen the bbox is sometimes empty
@@ -1271,12 +1271,12 @@ var FibaEurope;
                             }, 500);
                         }
                     }
-                    else if (this.data.type === FibaEurope.Data.staticElementType.area) {
-                        if (this.data.form === FibaEurope.Data.staticElementForm.ellipse) {
+                    else if (this.data.type === IsoBoard.Data.staticElementType.area) {
+                        if (this.data.form === IsoBoard.Data.staticElementForm.ellipse) {
                             this.hoverArea = paper.ellipse(this.data.width / 2, this.data.height / 2, this.data.width / 2, this.data.height / 2);
                             this.hoverElement = paper.group(this.hoverArea);
                         }
-                        else if (this.data.form === FibaEurope.Data.staticElementForm.rectangle) {
+                        else if (this.data.form === IsoBoard.Data.staticElementForm.rectangle) {
                             this.hoverArea = paper.rect(0, 0, this.data.width, this.data.height);
                             this.hoverElement = paper.group(this.hoverArea);
                         }
@@ -1352,10 +1352,10 @@ var FibaEurope;
                         if (_this.onLongPress(_this, x, y))
                             return;
                     }
-                    if (_this.data.type === FibaEurope.Data.staticElementType.text) {
+                    if (_this.data.type === IsoBoard.Data.staticElementType.text) {
                         _this.editText();
                     }
-                    else if (_this.data.type === FibaEurope.Data.staticElementType.area) {
+                    else if (_this.data.type === IsoBoard.Data.staticElementType.area) {
                         _this.editForm();
                     }
                 }, Thumb.longPressTimeout);
@@ -1402,12 +1402,12 @@ var FibaEurope;
                 var rect = Drawing.Rect.fromPoints(new Drawing.Point(x1, y1), new Drawing.Point(x2, y2));
                 if (this.displayElement) {
                     this.displayElement.transform("translate(" + rect.x + "," + rect.y + ")");
-                    if (this.data.form === FibaEurope.Data.staticElementForm.ellipse) {
+                    if (this.data.form === IsoBoard.Data.staticElementForm.ellipse) {
                         var w2 = rect.width / 2;
                         var h2 = rect.height / 2;
                         this.area.attr({ cx: w2, cy: h2, rx: w2, ry: h2 });
                     }
-                    else if (this.data.form === FibaEurope.Data.staticElementForm.rectangle) {
+                    else if (this.data.form === IsoBoard.Data.staticElementForm.rectangle) {
                         this.area.attr({ width: rect.width, height: rect.height });
                     }
                 }
@@ -1425,14 +1425,14 @@ var FibaEurope;
                 }
                 else if (paper) {
                     this.thumbs = new Array();
-                    if (this.data.type === FibaEurope.Data.staticElementType.text) {
+                    if (this.data.type === IsoBoard.Data.staticElementType.text) {
                         var moveThumb = new Thumb(thumbType.move, this.data.x, this.data.y, paper, touchMode);
                         moveThumb.onMoveStart = function (x, y) { return _this.tmpMoveStart(x, y); };
                         moveThumb.onMoveTo = function (x, y) { return _this.tmpMoveTo(x, y); };
                         moveThumb.onMoveStop = function (apply) { return _this.tmpMoveStop(apply); };
                         this.thumbs.push(moveThumb);
                     }
-                    else if (this.data.type === FibaEurope.Data.staticElementType.area) {
+                    else if (this.data.type === IsoBoard.Data.staticElementType.area) {
                         if (this.data.coords) {
                             for (var i = 0; i < this.data.coords.length; i++) {
                                 var pos = this.data.coords[i];
@@ -1546,9 +1546,9 @@ var FibaEurope;
             };
             StaticDrawingElement.createAreaFormSelectDialog = function (form, color, onOk) {
                 var data = [
-                    FibaEurope.Data.staticElementForm.ellipse,
-                    FibaEurope.Data.staticElementForm.rectangle,
-                    FibaEurope.Data.staticElementForm.triangle
+                    IsoBoard.Data.staticElementForm.ellipse,
+                    IsoBoard.Data.staticElementForm.rectangle,
+                    IsoBoard.Data.staticElementForm.triangle
                 ];
                 var lastClick = Date.now();
                 // create a dialog
@@ -1572,13 +1572,13 @@ var FibaEurope;
                         formDiv.classList.add("selectionItemSelected");
                     else
                         formDiv.classList.add("selectionItem");
-                    var svgEl = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                    var svgEl = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                     svgEl.setAttribute("width", "3em");
                     svgEl.setAttribute("height", "3em");
                     formDiv.appendChild(svgEl);
-                    var drawing = new FibaEurope.Drawing.SvgDrawing(Snap(svgEl));
-                    var statEl = new FibaEurope.Data.StaticElement();
-                    statEl.type = FibaEurope.Data.staticElementType.area;
+                    var drawing = new IsoBoard.Drawing.SvgDrawing(Snap(svgEl));
+                    var statEl = new IsoBoard.Data.StaticElement();
+                    statEl.type = IsoBoard.Data.staticElementType.area;
                     statEl.form = curForm;
                     statEl.color = color;
                     statEl.x = 2;
@@ -1722,10 +1722,10 @@ var FibaEurope;
                     var colorStr = DrawingElementHelper.getColorString(color);
                     this.displayElement.attr({ stroke: colorStr });
                     if (drawing) {
-                        if (this.data.type === FibaEurope.Data.lineElementType.movement || this.data.type === FibaEurope.Data.lineElementType.dribbling || this.data.type === FibaEurope.Data.lineElementType.passing) {
+                        if (this.data.type === IsoBoard.Data.lineElementType.movement || this.data.type === IsoBoard.Data.lineElementType.dribbling || this.data.type === IsoBoard.Data.lineElementType.passing) {
                             this.displayElement.attr({ markerEnd: drawing.getMarkerArrow(this.data.color) });
                         }
-                        else if (this.data.type === FibaEurope.Data.lineElementType.screen) {
+                        else if (this.data.type === IsoBoard.Data.lineElementType.screen) {
                             this.displayElement.attr({ markerEnd: drawing.getMarkerLine(this.data.color) });
                         }
                     }
@@ -1786,7 +1786,7 @@ var FibaEurope;
                 var _this = this;
                 this.tmpMovePt = new Drawing.Point(x, y);
                 this.hideMarker();
-                if (this.data.type !== FibaEurope.Data.lineElementType.free) {
+                if (this.data.type !== IsoBoard.Data.lineElementType.free) {
                     this.longPressTimer = setTimeout(function () {
                         _this.longPressTimer = null;
                         if (_this.onLongPress) {
@@ -1859,7 +1859,7 @@ var FibaEurope;
                     this.thumbs = new Array();
                     for (var i = 0; i < this.data.coords.length; i++) {
                         var pos = this.data.coords[i];
-                        if (this.data.type !== FibaEurope.Data.lineElementType.free) {
+                        if (this.data.type !== IsoBoard.Data.lineElementType.free) {
                             var thumb = new Thumb(thumbType.movePointer, pos.x, pos.y, paper, touchMode);
                             thumb.index = i;
                             thumb.onMoveStart = function (x, y) {
@@ -1922,7 +1922,7 @@ var FibaEurope;
             };
             LineDrawingElement.prototype.updatePath = function () {
                 var pathString;
-                if (this.data.type === FibaEurope.Data.lineElementType.dribbling && !this.tmpMovePt) {
+                if (this.data.type === IsoBoard.Data.lineElementType.dribbling && !this.tmpMovePt) {
                     pathString = LineDrawingElement.getPathStringWithWaves(this.data.coords, this.data.curved);
                 }
                 else {
@@ -1931,7 +1931,7 @@ var FibaEurope;
                 if (this.displayElement)
                     this.displayElement.attr({ d: pathString });
                 if (this.hoverElement) {
-                    if (this.data.type === FibaEurope.Data.lineElementType.dribbling)
+                    if (this.data.type === IsoBoard.Data.lineElementType.dribbling)
                         pathString = LineDrawingElement.getPathString(this.data.coords, this.data.curved);
                     this.hoverElement.attr({ d: pathString });
                 }
@@ -2006,33 +2006,33 @@ var FibaEurope;
             };
             LineDrawingElement.drawLineTypeIcon = function (paper, lineType) {
                 switch (lineType) {
-                    case FibaEurope.Data.lineElementType.movement:
+                    case IsoBoard.Data.lineElementType.movement:
                         paper.line(5, 17, 25, 17).attr({ stroke: "black", strokeWidth: 2 });
                         paper.path("m 26,17 -5,-5 0,10 z").attr({ fill: "black", strokeWidth: 0 });
                         break;
-                    case FibaEurope.Data.lineElementType.passing:
+                    case IsoBoard.Data.lineElementType.passing:
                         paper.line(5, 17, 25, 17).attr({ stroke: "black", strokeWidth: 2, strokeDasharray: "3,3" });
                         paper.path("m 26,17 -5,-5 0,10 z").attr({ fill: "black", strokeWidth: 0 });
                         break;
-                    case FibaEurope.Data.lineElementType.dribbling:
+                    case IsoBoard.Data.lineElementType.dribbling:
                         paper.path("m 3,16.5 1,0 c 2,0 2,2 4,2 2,0 2,-2 4,-2 2,0 2,2 4,2 2,0 2,-2 4,-2 l 1,0").attr({ fill: "none", stroke: "black", strokeWidth: 2 });
                         paper.path("m 26,17 -5,-5 0,10 z").attr({ fill: "black", strokeWidth: 0 });
                         break;
-                    case FibaEurope.Data.lineElementType.screen:
+                    case IsoBoard.Data.lineElementType.screen:
                         paper.line(5, 17, 25, 17).attr({ stroke: "black", strokeWidth: 2 });
                         paper.line(25, 12, 25, 22).attr({ stroke: "black", strokeWidth: 2 });
                         break;
-                    case FibaEurope.Data.lineElementType.line:
+                    case IsoBoard.Data.lineElementType.line:
                         paper.line(5, 17, 25, 17).attr({ stroke: "black", strokeWidth: 2 });
                 }
             };
             LineDrawingElement.createLineTypeSelectDialog = function (lineType, onOk) {
                 var data = [
-                    FibaEurope.Data.lineElementType.movement,
-                    FibaEurope.Data.lineElementType.passing,
-                    FibaEurope.Data.lineElementType.dribbling,
-                    FibaEurope.Data.lineElementType.screen,
-                    FibaEurope.Data.lineElementType.line
+                    IsoBoard.Data.lineElementType.movement,
+                    IsoBoard.Data.lineElementType.passing,
+                    IsoBoard.Data.lineElementType.dribbling,
+                    IsoBoard.Data.lineElementType.screen,
+                    IsoBoard.Data.lineElementType.line
                 ];
                 var lastClick = Date.now();
                 // create a dialog
@@ -2056,11 +2056,11 @@ var FibaEurope;
                         lineTypeDiv.classList.add("selectionItemSelected");
                     else
                         lineTypeDiv.classList.add("selectionItem");
-                    var svgEl = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                    var svgEl = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                     svgEl.setAttribute("width", "3em");
                     svgEl.setAttribute("height", "3em");
                     lineTypeDiv.appendChild(svgEl);
-                    var drawing = new FibaEurope.Drawing.SvgDrawing(Snap(svgEl));
+                    var drawing = new IsoBoard.Drawing.SvgDrawing(Snap(svgEl));
                     this.drawLineTypeIcon(drawing.paper, curLineType);
                     lineTypeDiv.lineType = curLineType;
                     lineTypeDiv.addEventListener("click", function (e) {
@@ -2082,28 +2082,28 @@ var FibaEurope;
             DrawingElementHelper.getColorString = function (color) {
                 var colorStr;
                 switch (color) {
-                    case FibaEurope.Data.elementColor.yellow:
+                    case IsoBoard.Data.elementColor.yellow:
                         colorStr = "#ffff00";
                         break;
-                    case FibaEurope.Data.elementColor.green:
+                    case IsoBoard.Data.elementColor.green:
                         colorStr = "#7ce86a";
                         break;
-                    case FibaEurope.Data.elementColor.red:
+                    case IsoBoard.Data.elementColor.red:
                         colorStr = "#ff0000";
                         break;
-                    case FibaEurope.Data.elementColor.grey:
+                    case IsoBoard.Data.elementColor.grey:
                         colorStr = "#7f7f7f";
                         break;
-                    case FibaEurope.Data.elementColor.black:
+                    case IsoBoard.Data.elementColor.black:
                         colorStr = "#000000";
                         break;
-                    case FibaEurope.Data.elementColor.blue:
+                    case IsoBoard.Data.elementColor.blue:
                         colorStr = "#5dd5ff";
                         break;
-                    case FibaEurope.Data.elementColor.offence:
+                    case IsoBoard.Data.elementColor.offence:
                         colorStr = "#003366";
                         break;
-                    case FibaEurope.Data.elementColor.defence:
+                    case IsoBoard.Data.elementColor.defence:
                         colorStr = "#58001d";
                         break;
                 }
@@ -2111,14 +2111,14 @@ var FibaEurope;
             };
             DrawingElementHelper.createColorSelectDialog = function (color, onOk) {
                 var data = [
-                    FibaEurope.Data.elementColor.offence,
-                    FibaEurope.Data.elementColor.defence,
-                    FibaEurope.Data.elementColor.black,
-                    FibaEurope.Data.elementColor.grey,
-                    FibaEurope.Data.elementColor.yellow,
-                    FibaEurope.Data.elementColor.red,
-                    FibaEurope.Data.elementColor.green,
-                    FibaEurope.Data.elementColor.blue
+                    IsoBoard.Data.elementColor.offence,
+                    IsoBoard.Data.elementColor.defence,
+                    IsoBoard.Data.elementColor.black,
+                    IsoBoard.Data.elementColor.grey,
+                    IsoBoard.Data.elementColor.yellow,
+                    IsoBoard.Data.elementColor.red,
+                    IsoBoard.Data.elementColor.green,
+                    IsoBoard.Data.elementColor.blue
                 ];
                 var lastClick = Date.now();
                 // create a dialog
@@ -2142,14 +2142,14 @@ var FibaEurope;
                         colorDiv.classList.add("selectionItemSelected");
                     else
                         colorDiv.classList.add("selectionItem");
-                    var svgEl = FibaEurope.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
+                    var svgEl = IsoBoard.Drawing.SvgDrawing.createSvgElement(false, 30, 30);
                     svgEl.setAttribute("width", "3em");
                     svgEl.setAttribute("height", "3em");
                     colorDiv.appendChild(svgEl);
-                    var drawing = new FibaEurope.Drawing.SvgDrawing(Snap(svgEl));
-                    var statEl = new FibaEurope.Data.StaticElement();
-                    statEl.type = FibaEurope.Data.staticElementType.area;
-                    statEl.form = FibaEurope.Data.staticElementForm.ellipse;
+                    var drawing = new IsoBoard.Drawing.SvgDrawing(Snap(svgEl));
+                    var statEl = new IsoBoard.Data.StaticElement();
+                    statEl.type = IsoBoard.Data.staticElementType.area;
+                    statEl.form = IsoBoard.Data.staticElementForm.ellipse;
                     statEl.color = curColor;
                     statEl.x = 2;
                     statEl.y = 3;
@@ -2365,6 +2365,6 @@ var FibaEurope;
         }());
         Thumb.longPressTimeout = 700;
         Drawing.Thumb = Thumb;
-    })(Drawing = FibaEurope.Drawing || (FibaEurope.Drawing = {}));
-})(FibaEurope || (FibaEurope = {}));
-//# sourceMappingURL=fibaDrawingSvg.js.map
+    })(Drawing = IsoBoard.Drawing || (IsoBoard.Drawing = {}));
+})(IsoBoard || (IsoBoard = {}));
+//# sourceMappingURL=isoBoardDrawingSvg.js.map

@@ -1,5 +1,5 @@
-var FibaEurope;
-(function (FibaEurope) {
+var IsoBoard;
+(function (IsoBoard) {
     var Drawing;
     (function (Drawing) {
         "use strict";
@@ -469,6 +469,6 @@ var FibaEurope;
             return SimplifyPolyline;
         }());
         Drawing.SimplifyPolyline = SimplifyPolyline;
-    })(Drawing = FibaEurope.Drawing || (FibaEurope.Drawing = {}));
-})(FibaEurope || (FibaEurope = {}));
-//# sourceMappingURL=fibaDrawingCurvedPath.js.map
+    })(Drawing = IsoBoard.Drawing || (IsoBoard.Drawing = {}));
+})(IsoBoard || (IsoBoard = {}));
+//# sourceMappingURL=isoBoardDrawingCurvedPath.js.map

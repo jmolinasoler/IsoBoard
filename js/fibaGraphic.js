@@ -1,7 +1,7 @@
-/// <reference path="fibaDrawingCurvedPath.ts" />
-var FibaEurope;
-/// <reference path="fibaDrawingCurvedPath.ts" />
-(function (FibaEurope) {
+/// <reference path="isoBoardDrawingCurvedPath.ts" />
+var IsoBoard;
+/// <reference path="isoBoardDrawingCurvedPath.ts" />
+(function (IsoBoard) {
     var Data;
     (function (Data) {
         "use strict";
@@ -26,7 +26,7 @@ var FibaEurope;
                             graphic = Graphic.loadFromXml(req.responseXML);
                         else
                             graphic = Graphic.loadFromXmlString(req.responseText);
-                        if (graphic && req.getResponseHeader("FibaCoach-FullCourt") === "0")
+                        if (graphic && req.getResponseHeader("IsoBoardCoach-FullCourt") === "0")
                             graphic.fullCourt = false;
                     }
                     scope ? callback.call(scope, graphic) : callback(graphic);
@@ -101,7 +101,7 @@ var FibaEurope;
                         // xml version 0.1 and 0.2
                         var length = 81.3 * +entry.getAttribute("length") / 100;
                         var rotation = +entry.getAttribute("rotation");
-                        var endpoint = FibaEurope.Drawing.CurvedPathMaths.move(line.coords[0], FibaEurope.Drawing.CurvedPathMaths.rotate({ x: length, y: 0 }, rotation));
+                        var endpoint = IsoBoard.Drawing.CurvedPathMaths.move(line.coords[0], IsoBoard.Drawing.CurvedPathMaths.rotate({ x: length, y: 0 }, rotation));
                         line.addCoordinate(endpoint.x, endpoint.y);
                         // swap points
                         var tmp = line.coords[0];
@@ -398,6 +398,6 @@ var FibaEurope;
             return Coordinate;
         }());
         Data.Coordinate = Coordinate;
-    })(Data = FibaEurope.Data || (FibaEurope.Data = {}));
-})(FibaEurope || (FibaEurope = {}));
-//# sourceMappingURL=fibaGraphic.js.map
+    })(Data = IsoBoard.Data || (IsoBoard.Data = {}));
+})(IsoBoard || (IsoBoard = {}));
+//# sourceMappingURL=isoBoardGraphic.js.map
