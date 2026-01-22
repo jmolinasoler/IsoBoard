@@ -59,7 +59,7 @@ IsoBoard/
 
 **Key Methods**:
 - `setupSidebarTools()` - Dynamically creates attacker (1-5) and defender (A-E) buttons
-- `setupDragAndDrop()` - Implements HTML5 Drag and Drop API
+- `setupDragAndDrop()` - Implements HTML5 Drag and Drop API with enhanced event handling
 - `addObjectToCanvas(type, label, x, y)` - Factory method for creating Fabric objects
 - `toggleDrawingMode()` - Enables/disables free-hand drawing
 
@@ -74,11 +74,15 @@ IsoBoard/
 - Objects have custom controls (borderColor: #2563eb, cornerSize: 8)
 - Uses `getPointer(e)` to map DOM events to canvas coordinates
 - Drawing mode uses PencilBrush (width: 3, color: white)
+- **Drag-and-Drop Enhancement**: Listeners attached to both `.canvas-container` wrapper AND `canvas.upperCanvasEl` for reliable drop handling
+- **Debug Mode**: Console logging for dragstart/drop events to troubleshoot drag-and-drop issues
+- **Text Rendering**: Uses `String(label)` conversion and improved font-family fallbacks
 
 **Critical Notes**:
 - ALWAYS wrap objects in Groups (even single shapes) for consistency
 - MUST call `requestRenderAll()` after adding objects
 - originX and originY must be 'center' for proper positioning
+- Drop event listeners MUST be on both wrapper and canvas element for cross-browser compatibility
 
 ### 3. ActionManager (`js/actions.js`)
 **Responsibility**: User actions (export, reset, clipboard)
@@ -104,15 +108,19 @@ IsoBoard/
 **Initialization Order** (CRITICAL):
 1. Wait for `DOMContentLoaded`
 2. Initialize CanvasManager
-3. Initialize ToolManager (passes canvas instance)
-4. Initialize ActionManager (passes CanvasManager)
-5. Wire up UI event listeners
+3. **Configure "Extras" tools** (ball, cone) - set draggable, dataset.type, and add 'tool-item' class
+4. Initialize ToolManager (passes canvas instance) - now picks up all .tool-item elements including extras
+5. Initialize ActionManager (passes CanvasManager)
+6. Wire up UI event listeners
 
 **Event Listeners**:
 - Draw toggle button (toggles active class)
 - Reset button (confirmation dialog required)
 - Export button (downloads PNG)
 - Clipboard button (copies to clipboard)
+
+**Recent Fix** (2026-01-22):
+- Moved extras configuration BEFORE ToolManager initialization to ensure drag-and-drop event listeners are properly attached
 
 ## Coding Conventions & Standards
 
@@ -330,11 +338,27 @@ canvas.requestRenderAll();
 
 ### Pitfall 2: Drag-and-Drop Not Working
 ```javascript
-// ❌ PROBLEM: Listening on canvas element
+// ❌ PROBLEM: Listening only on canvas element
 canvas.addEventListener('drop', handler);
 
-// ✅ SOLUTION: Listen on wrapper div
-document.querySelector('.canvas-container').addEventListener('drop', handler);
+// ✅ SOLUTION: Listen on BOTH wrapper div AND canvas.upperCanvasEl
+const canvasWrapper = document.querySelector('.canvas-container');
+const canvasElement = canvas.upperCanvasEl;
+
+canvasWrapper.addEventListener('dragover', handleDragOver);
+canvasWrapper.addEventListener('drop', handleDrop);
+canvasElement.addEventListener('dragover', handleDragOver);
+canvasElement.addEventListener('drop', handleDrop);
+
+// ⚠️ TIMING ISSUE: Extras must be configured BEFORE ToolManager init
+// ❌ WRONG: Initialize ToolManager first, then configure extras
+const toolMgr = new ToolManager(canvas, ...);
+ballTool.draggable = true; // Too late!
+
+// ✅ CORRECT: Configure extras, then initialize ToolManager
+ballTool.draggable = true;
+ballTool.classList.add('tool-item');
+const toolMgr = new ToolManager(canvas, ...); // Now picks up extras
 ```
 
 ### Pitfall 3: Objects Not Draggable
@@ -498,6 +522,13 @@ canvas.undo = function() {
 
 ## Change Log
 
+### 2026-01-22
+- Enhanced drag-and-drop functionality with dual event listener strategy
+- Fixed initialization order bug (extras now configured before ToolManager)
+- Added comprehensive debug logging for troubleshooting drag-and-drop
+- Improved text rendering with String() conversion and font fallbacks
+- Updated documentation with new pitfalls and solutions
+
 ### 2026-01-20
 - Created comprehensive AI_CONTEXT.md
 - Added ARCHITECTURE.md with production roadmap
@@ -506,6 +537,6 @@ canvas.undo = function() {
 
 ---
 
-**Last Updated**: 2026-01-20  
-**Version**: 1.0.0  
-**Status**: MVP (Production roadmap defined)
+**Last Updated**: 2026-01-22  
+**Version**: 1.0.1  
+**Status**: MVP (Drag-and-drop enhancements completed)

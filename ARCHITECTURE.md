@@ -49,6 +49,8 @@ IsoBoard is a client-side tactical basketball whiteboard application built with 
 ✅ **Lightweight** - No framework overhead
 ✅ **Fast initial load** - Minimal dependencies
 ✅ **Responsive UI** - Modern glassmorphic design
+✅ **Enhanced drag-and-drop** - Dual event listener strategy for cross-browser reliability (2026-01-22)
+✅ **Debugging capabilities** - Console logging for troubleshooting drag-and-drop issues
 
 ### Weaknesses
 ❌ **No state management** - Application state is scattered across managers
@@ -56,11 +58,12 @@ IsoBoard is a client-side tactical basketball whiteboard application built with 
 ❌ **Limited collaboration** - Single-user only
 ❌ **No undo/redo** - No history tracking
 ❌ **CDN dependency** - External dependency without fallback
-❌ **No error boundaries** - Poor error handling
+❌ **No error boundaries** - Poor error handling (debug logging added 2026-01-22)
 ❌ **No testing infrastructure** - No unit or integration tests
 ❌ **No build pipeline** - No optimization, bundling, or tree-shaking
 ❌ **No analytics** - No usage tracking or error monitoring
 ❌ **No version control for boards** - Can't save/load multiple plays
+⚠️ **Debug console output** - Production code contains extensive console.log statements
 
 ---
 
