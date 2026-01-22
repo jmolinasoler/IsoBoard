@@ -24,14 +24,15 @@
       
         $(".graphicHost").each(function () {    
             var host = $(this);
-            var paramId = host.data("graphic");
-            if (paramId != '' && paramId != '0') {
-                IsoBoard.Data.Graphic.loadFromUrl("graphics.asp?do=get&param_id=" + paramId, function (graphic) {
-                    applyGraphicToHost(host, graphic);
-                }, this);
-            } else {
+            // Disabled server-side graphic loading to prevent 404 errors
+            // var paramId = host.data("graphic");
+            // if (paramId != '' && paramId != '0') {
+            //     IsoBoard.Data.Graphic.loadFromUrl("graphics.asp?do=get&param_id=" + paramId, function (graphic) {
+            //         applyGraphicToHost(host, graphic);
+            //     }, this);
+            // } else {
                 applyGraphicToHost(host);
-            }
+            // }
         });
       });
       
@@ -58,14 +59,8 @@
 	{
 		window.open(qs, 'animationviewer', 'width=' + width + ', height=' + height + ',status=no,location=no,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,screenX=0,screenY=0');
 	}
-	 </script><script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script><script src="./IsoBoard_files/ga.js" type="text/javascript"></script><script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-1287223-13");
-	pageTracker._trackPageview();
-	} catch(err) {}</script><style> 
+	 </script><!-- Google Analytics removed --><script type="text/javascript">
+	<!-- Google Analytics tracking removed --></script><style> 
         html { height:100%; }
         body { position:absolute; top:0; bottom:0; right:0; left:0; margin:0; padding:0; background-color:#999999; overflow:hidden; }
         #drawingHost { position:absolute; top:0; bottom:0; right:80px; left:0; }
@@ -99,15 +94,14 @@
         var newGraphicUrl = loc[0] + "?cid=" + data['cid'] + "&itemID=" + data['itemID'] + "&do=newGraphics&of=txt&ts={timestamp}"
       
         var toolOptions = {
-          graphicId: "{067B2A92-EDBF-4A58-89E4-2AB921E365D5}",
-          sessionId: "144018629",
           wheelchair: false,
           fullCourt: false,
-          touchMode: true,
-          loadAction: { url: "graphics.asp?do=get&param_id={graphicId}" },
-          saveAction: { url: "graphics.asp?do=post", params: { param_id: "{graphicId}", json: "{data}", param_fullCourt: "{fullCourt}", param_sessionID: "{sessionId}" } },
-          newAction: { url: newGraphicUrl, doneCallback: function() { newGraphics(); } },
-          onClose: function () { closeGraphics() }
+          touchMode: true
+          // Removed server-side load/save/new actions - now a standalone client-side app
+          // loadAction: { url: "graphics.asp?do=get&param_id={graphicId}" },
+          // saveAction: { url: "graphics.asp?do=post", params: {...} },
+          // newAction: { url: newGraphicUrl, doneCallback: function() { newGraphics(); } },
+          // onClose: function () { closeGraphics() }
         };
         tool = new IsoBoard.Drawing.DrawingTool(toolOptions);
       });
