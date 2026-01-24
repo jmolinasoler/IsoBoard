@@ -1,8 +1,15 @@
 # IsoBoard - Tactical Basketball Whiteboard
 
-IsoBoard is a standalone, client-side tactical basketball whiteboard application. It allows coaches and players to visualize plays, positioning, and strategy through an interactive SVG canvas using Snap.svg.
+IsoBoard is a standalone, client-side tactical basketball whiteboard application designed specifically for basketball coaches. It provides an intuitive interface to visualize plays, positioning, and strategy through an interactive SVG canvas, helping coaches communicate tactics effectively with their teams.
 
-![IsoBoard Preview](https://via.placeholder.com/800x600?text=IsoBoard+Tactical+Whiteboard)
+## 🏀 For Coaches
+
+IsoBoard is built with coaches in mind, offering:
+- **Quick Play Design**: Create and visualize basketball plays in seconds
+- **Touch-Friendly Interface**: Optimized for tablets and mobile devices for sideline use
+- **Professional Quality**: Export high-resolution diagrams for playbooks and presentations
+- **No Internet Required**: Works offline once loaded - perfect for gym environments
+- **Simple & Intuitive**: Minimal learning curve, focus on coaching not technology
 
 ## 🚀 Features
 
@@ -136,7 +143,22 @@ IsoBoard/
 - **Clipboard API**: Uses secure `navigator.clipboard` API (requires HTTPS or localhost)
 - **Local Storage**: All work is session-based (not saved between page refreshes)
 
-## 🔧 Technical Notes
+## � Bug Reports & Feature Requests
+
+Found a bug or have a feature suggestion? We'd love to hear from you!
+
+**Please report issues on GitHub:**
+1. Go to the [Issues page](https://github.com/yourusername/IsoBoard/issues)
+2. Click "New Issue"
+3. Describe the problem or feature request with:
+   - Steps to reproduce (for bugs)
+   - Expected behavior
+   - Screenshots if helpful
+   - Browser and device information
+
+Your feedback helps make IsoBoard better for the entire coaching community!
+
+## �🔧 Technical Notes
 
 - **SVG-based**: Uses Snap.svg for high-quality vector graphics
 - **Export Quality**: PNG exports maintain full resolution and quality
@@ -145,7 +167,15 @@ IsoBoard/
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
+
+**What this means:**
+- ✅ Free to use for personal and commercial purposes
+- ✅ Modify and distribute as you wish
+- ✅ Use in your coaching business without restrictions
+- ✅ No warranty - use at your own risk
+
+See the [LICENSE](LICENSE) file for full details.
 
 ## 📚 Documentation
 
@@ -154,5 +184,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**IsoBoard** - Professional basketball tactical drawing tool for coaches and players.
-Created with 🏀 for the basketball community.
+**IsoBoard** - Professional basketball tactical drawing tool for coaches.
+Created with 🏀 for the basketball coaching community.
+
+**MIT Licensed** - Free to use, modify, and distribute.
